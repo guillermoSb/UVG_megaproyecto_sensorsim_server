@@ -13,7 +13,7 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
 const sensors: Sensor[] = [
-    new Sensor('1', { x: 0, y: 0, z: 0 }, SignalStrength.LOW),
+    new Sensor('1', SignalStrength.LOW),
 ];
 
 // Broadcast to all connected WebSocket clients
@@ -50,8 +50,8 @@ wss.on('connection', (ws) => {
 					break;
 				}
 				case 'add-sensor': {
-					const { id, location, signalStrength } = body;
-					const sensor = new Sensor(id, location, signalStrength);
+					const { id, signalStrength } = body;
+					const sensor = new Sensor(id, signalStrength);
 					sensors.push(sensor);
 					console.log('added sensor', sensor);
 					ws.send(JSON.stringify({ type: 'sensors-update', data: sensors }));
