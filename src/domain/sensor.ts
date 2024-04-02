@@ -7,29 +7,27 @@ type SensorID = string;
  * Sensor representation
  */
 export class Sensor {
-	sensorId: SensorID;
-	name: string;
-	
+
 	constructor(
-		public id: SensorID,
-		public type: string,
-		public location: Location,
+		public id: SensorID,		
 		public signalStrength: SignalStrength,
-	) {}
+	) {
+		this.id = id;
+		this.signalStrength = signalStrength;
+	}
+
+	/**
+	 * Set signal strength
+	 * @param signalStrength New signal strength
+	 */
+	setSignalStrength(signalStrength: SignalStrength) {
+		this.signalStrength = signalStrength;
+	}
 }
 
 
 export enum SignalStrength {
-	LOW = 0,
-	MEDIUM = 1,
-	HIGH = 2,
-}
-
-/**
- * Location for a sensor
- */
-export interface Location {
-	x: number;
-	y: number;
-	z: number;
+	LOW = 'LOW',
+	MEDIUM = 'MEDIUM',
+	HIGH = 'HIGH',
 }
